@@ -23,3 +23,108 @@ The project is designed for product, data, or customer-experience stakeholders w
 - Saves the best model pipeline for future inference.
 - Includes a reproducible notebook documenting the full experimentation process.
 
+## Architecture
+```text
+Google Play Store Reviews
+        |
+        v
+scrape_playstore_reviews.py
+        |
+        v
+wondr_reviews_gps.csv
+        |
+        v
+training_wondr_sentiment.ipynb
+        |
+        +--> Text cleaning and sentiment labeling
+        +--> Train/test split with stratification
+        +--> TF-IDF feature extraction
+        +--> Logistic Regression / Linear SVM experiments
+        +--> Evaluation metrics and visualizations
+        |
+        v
+models/wondr_sentiment_best.joblib
+```
+
+## Project Structure
+```text
+.
+├── README.md
+├── requirements.txt
+├── scrape_playstore_reviews.py
+├── training_wondr_sentiment.ipynb
+├── wondr_reviews_gps.csv
+└── models
+    └── wondr_sentiment_best.joblib
+```
+
+## Prerequisites
+- Python 3.10+ recommended
+- pip
+- Jupyter Notebook, JupyterLab, or Google Colab for running the notebook
+- Internet access if scraping fresh Google Play reviews
+
+## Installation & Setup
+
+### 1. Clone or Prepare the Project
+```bash
+git clone <your-repository-url>
+cd <repository-folder>
+```
+
+If you already have the project locally, open the project directory directly.
+
+### 2. Create a Virtual Environment
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+On Windows:
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+If your environment does not already include Jupyter, install it separately:
+```bash
+pip install notebook
+```
+
+### 4. Scrape Reviews Optional
+The repository already includes `wondr_reviews_gps.csv`. To collect a fresh dataset:
+
+```bash
+python scrape_playstore_reviews.py --min-rows 3000 --output wondr_reviews_gps.csv
+```
+
+Useful scraper options:
+```bash
+python scrape_playstore_reviews.py \
+  --app-id com.bni.wonder \
+  --lang id \
+  --country id \
+  --min-rows 3000 \
+  --batch-size 200 \
+  --sleep-sec 0.8 \
+  --output wondr_reviews_gps.csv
+```
+
+### 5. Train and Evaluate
+Open and run the notebook:
+
+```bash
+jupyter notebook training_wondr_sentiment.ipynb
+```
+
+The notebook loads the CSV dataset, performs preprocessing, trains models, evaluates results, and saves the best pipeline to:
+
+```text
+models/wondr_sentiment_best.joblib
+```
+
