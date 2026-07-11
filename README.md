@@ -174,3 +174,39 @@ Expected output:
 positive
 ```
 
+## Performance & Metrics
+The notebook evaluates three model configurations using an 80/20 stratified train-test split.
+
+| Model | Accuracy | Macro F1 | Weighted F1 |
+|---|---:|---:|---:|
+| Linear SVM + Char TF-IDF (3-5) | 87.12% | 64.72% | 87.32% |
+| Linear SVM + TF-IDF (1,2) | 86.41% | 63.91% | 86.77% |
+| Logistic Regression + TF-IDF (1,2) | 85.32% | 64.98% | 86.66% |
+
+Best model:
+```text
+Linear SVM + Char TF-IDF (3-5)
+```
+
+Dataset and artifact notes:
+- Raw dataset file: `wondr_reviews_gps.csv`
+- Dataset size in repository: 62,707 review rows
+- Test set size shown in notebook output: 11,942 reviews
+- Saved model artifact: `models/wondr_sentiment_best.joblib`
+- Model artifact size: approximately 1.8 MB
+
+## Project Statistics
+- **Python scripts:** 1
+- **Notebook:** 1 Jupyter notebook with 24 cells
+- **Dataset:** 62,707 Google Play review rows
+- **Tracked model artifacts:** 1 serialized model
+- **Script size:** 157 lines in `scrape_playstore_reviews.py`
+- **Repository size:** approximately 22 MB including dataset, notebook, model, and archive file
+
+## Technical Highlights
+- Built a full review analytics pipeline from data collection to model serialization.
+- Used reusable scikit-learn pipelines to package TF-IDF feature extraction and classification together.
+- Compared word-level and character-level TF-IDF approaches for noisy mobile app review text.
+- Applied class weighting to reduce the impact of imbalanced sentiment distribution.
+- Preserved reproducibility with fixed random state and saved model artifacts.
+
