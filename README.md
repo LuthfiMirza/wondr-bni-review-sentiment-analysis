@@ -210,3 +210,28 @@ Dataset and artifact notes:
 - Applied class weighting to reduce the impact of imbalanced sentiment distribution.
 - Preserved reproducibility with fixed random state and saved model artifacts.
 
+## Lessons Learned
+This project shows that simple, well-structured classical NLP pipelines can perform strongly on app review sentiment classification, especially when paired with robust TF-IDF features. Character n-grams performed best in this project, likely because mobile reviews often contain informal spelling, abbreviations, typos, and mixed Indonesian-English terms.
+
+The main limitation is that sentiment labels are derived from star ratings rather than manually annotated text. This is practical for bootstrapping a dataset, but it may introduce noise when the review content and rating do not perfectly align. A future production version should include manually reviewed labels, stronger handling for the neutral class, and a consistent inference utility module shared by both training and deployment.
+
+## Future Improvements
+- Add a dedicated inference script or API endpoint for batch prediction.
+- Export preprocessing logic into a reusable Python module.
+- Add unit tests for scraping, cleaning, and inference functions.
+- Experiment with Indonesian transformer models for improved neutral-class performance.
+- Add model versioning and experiment tracking.
+- Build a dashboard for sentiment trends over time.
+
+## Author
+Luthfi Mirza Darsono
+- GitHub: Add your GitHub profile link
+- LinkedIn: Add your LinkedIn profile link
+
+## GitHub Repository Suggestion
+- **Repo name:** `wondr-review-sentiment-analysis`
+- **Repo description:** Sentiment analysis pipeline for Wondr by BNI Google Play reviews using Python, TF-IDF, and Linear SVM.
+- **Topics/tags:** `sentiment-analysis`, `machine-learning`, `nlp`, `python`, `scikit-learn`, `google-play-scraper`, `app-reviews`
+
+## LinkedIn/Portfolio Description
+Sentiment analysis pipeline for Wondr by BNI app reviews using Python, TF-IDF, and Linear SVM with 87.12% accuracy.
