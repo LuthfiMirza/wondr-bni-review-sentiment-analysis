@@ -225,8 +225,8 @@ The main limitation is that sentiment labels are derived from star ratings rathe
 
 ## Author
 Luthfi Mirza Darsono
-- GitHub: Add your GitHub profile link
-- LinkedIn: Add your LinkedIn profile link
+- GitHub: https://github.com/LuthfiMirza
+- LinkedIn: https://www.linkedin.com/in/luthfimirzadarsono/
 
 ## GitHub Repository Suggestion
 - **Repo name:** `wondr-review-sentiment-analysis`
