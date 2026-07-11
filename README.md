@@ -128,3 +128,49 @@ The notebook loads the CSV dataset, performs preprocessing, trains models, evalu
 models/wondr_sentiment_best.joblib
 ```
 
+## Usage Examples
+
+### Example 1: Scrape Google Play Reviews
+```bash
+python scrape_playstore_reviews.py --min-rows 3000 --output wondr_reviews_gps.csv
+```
+
+Expected terminal output:
+```text
+Scraping Google Play reviews for com.bni.wonder (id-id) until 3000 rows…
+Collected 500 reviews…
+Total unique reviews collected: 3,000+
+Saved dataset to wondr_reviews_gps.csv
+```
+
+### Example 2: Run Sentiment Inference with Saved Model
+The saved model expects text that has been cleaned using the same preprocessing logic as the notebook. If NLTK stopwords are not available yet, run `python -c "import nltk; nltk.download('stopwords')"` once before inference.
+
+```python
+import re
+import joblib
+from nltk.corpus import stopwords
+
+URL_PATTERN = re.compile(r"http\S+|www\S+")
+NON_ALPHA_PATTERN = re.compile(r"[^a-zA-Z\s]")
+EXTRA_STOPWORDS = {"aplikasi", "wondr", "bni"}
+STOPWORDS = set(stopwords.words("indonesian")) | set(stopwords.words("english")) | EXTRA_STOPWORDS
+
+def clean_text(text: str) -> str:
+    text = str(text).lower()
+    text = URL_PATTERN.sub(" ", text)
+    text = NON_ALPHA_PATTERN.sub(" ", text)
+    tokens = [token for token in text.split() if token and token not in STOPWORDS]
+    return " ".join(tokens)
+
+model = joblib.load("models/wondr_sentiment_best.joblib")
+review = "Fitur bayar parkirnya praktis banget, jadi ga perlu cari mesin EDC lagi."
+prediction = model.predict([clean_text(review)])
+print(prediction[0])
+```
+
+Expected output:
+```text
+positive
+```
+
